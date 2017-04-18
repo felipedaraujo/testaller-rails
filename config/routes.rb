@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, except: :create do
+  resources :users do
     resources :orders
   end
 
@@ -8,5 +8,4 @@ Rails.application.routes.draw do
   end
 
   post 'auth/signin', to: 'authentication#authenticate'
-  post 'signup', to: 'users#create'
 end
