@@ -45,3 +45,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'cpf_cnpj'
 gem 'validators'
 gem 'jwt'
+gem 'rack-cors', :require => 'rack/cors'
