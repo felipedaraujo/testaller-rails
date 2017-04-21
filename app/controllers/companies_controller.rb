@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
 
   def index
     @companies = current_user.companies
+    @companies = @companies.map { |company| company.append_total_orders }
     render json: @companies
   end
 

@@ -7,4 +7,14 @@ class Company < ApplicationRecord
   validates :cnpj,    presence: true, uniqueness: true
   validates :name,    presence: true, length: { maximum: 255 }
   validates :user_id, presence: true
+
+
+
+  def append_total_orders
+    attributes.merge(total_orders: self.total_orders)
+  end
+
+  def total_orders
+    products.joins(:lists).where(company_id: self.id).count
+  end
 end
