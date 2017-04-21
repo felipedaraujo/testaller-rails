@@ -15,6 +15,7 @@ class Company < ApplicationRecord
   end
 
   def total_orders
-    products.joins(:lists).where(company_id: self.id).count
+    # products.joins(:lists).where(company_id: self.id).count
+    products.joins(lists: :order).select(:orders).group(:orders).length
   end
 end
