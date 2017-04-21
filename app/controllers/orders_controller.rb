@@ -2,7 +2,10 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy]
 
   def index
-    @orders = current_user.orders
+    @orders = Order.where(nil)
+    @orders = @orders.where(id: order_params[:id]) if order_params[:id].present?
+    @orders = @orders.cnpj(order_params[:cnpj]) if order_params[:cnpj].present?
+    @orders = @orders.map {|order| order.append_products}
     render json: @orders
   end
 
@@ -34,6 +37,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.permit(:status)
+      params.permit(:id, :status, :cnpj, :products => [:id, :quantity])
     end
 end
