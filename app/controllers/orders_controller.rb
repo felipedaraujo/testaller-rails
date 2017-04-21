@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy]
 
   def index
-    @orders = Order.where(nil)
+    @orders = Order.where(user_id: current_user.id)
     @orders = @orders.where(id: order_params[:id]) if order_params[:id].present?
     @orders = @orders.cnpj(order_params[:cnpj]) if order_params[:cnpj].present?
     @orders = @orders.map {|order| order.append_products}
