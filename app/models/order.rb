@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   has_many :lists
   has_many :products, :through => :lists
 
-  scope :cnpj, -> (cnpj) { joins(lists: { product: :company }).where(companies: {cnpj: cnpj})}
+  scope :cnpj, -> (cnpj) { joins(lists: { product: :company }).distinct.where(companies: {cnpj: cnpj})}
 
   def append_products
     attributes.merge(products: self.products)
