@@ -14,12 +14,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_user.orders.create!(order_params)
+    @order = current_user.orders.create!
+    @order.create_products(order_params[:products])
     render json: @order, status: :created
   end
 
   def update
-    if @order.update(order_params)
+    if @order.update!(status: order_params[:status])
       render json: @order
     else
       render json: @order.errors, status: :unprocessable_entity
