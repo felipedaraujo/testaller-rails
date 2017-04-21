@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   skip_before_action :authorize_request, only: :create
   before_action :set_user, only: [:update]
 
+  def show
+    user = { id: current_user.id, email: current_user.email }
+    render json: user
+  end
+
   def create
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(user.email, user.password).call
