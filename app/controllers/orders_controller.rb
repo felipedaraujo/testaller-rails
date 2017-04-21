@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
   end
 
   def update
+    # TODO: verificar porque a requisição para atualizar um pedido retorna 404
     if @order.update!(status: order_params[:status])
       render json: @order
     else
