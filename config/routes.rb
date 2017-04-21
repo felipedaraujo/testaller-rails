@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :users do
-    resources :orders
+  resources :users, only: [:create, :update]
+
+  resources :orders, only: [:index, :create, :update]
+
+  resources :companies, only: [:index, :create] do
+    resources :products, only: [:index, :create]
   end
 
-  resources :companies do
-    resources :products
-  end
-
+  get 'me', to: 'users#show'
   post 'auth/signin', to: 'authentication#authenticate'
 end
